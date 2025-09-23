@@ -1,0 +1,8 @@
+.vscode
+.direnv
+.cache
+
+flake.lock
+obj
+bin
+compile_commands.json
