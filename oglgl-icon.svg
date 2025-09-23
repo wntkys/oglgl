@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Фон -->
+  <rect width="64" height="64" rx="8" fill="#2c3e50"/>
+  
+  <!-- OpenGL логотип - треугольник -->
+  <polygon points="32,12 48,40 16,40" fill="#3498db" stroke="#ecf0f1" stroke-width="2"/>
+  
+  <!-- Внутренний треугольник -->
+  <polygon points="32,20 42,36 22,36" fill="#e74c3c"/>
+  
+  <!-- GL текст -->
+  <text x="32" y="56" text-anchor="middle" font-family="monospace" font-size="10" fill="#ecf0f1" font-weight="bold">GL</text>
+</svg>

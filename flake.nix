@@ -11,6 +11,20 @@
       let
         pkgs = nixpkgs.legacyPackages.${system};
         pname = "oglgl";
+        
+        # Desktop entry для приложения
+        desktopItem = pkgs.makeDesktopItem {
+          name = pname;
+          exec = pname;
+          icon = pname;  # используем нашу собственную иконку
+          desktopName = "OGL GL Demo";
+          comment = "OpenGL демонстрация с SDL3";
+          genericName = "3D Graphics Demo";
+          categories = [ "Graphics" "Development" "Education" ];
+          keywords = [ "opengl" "graphics" "demo" "3d" "sdl3" "cglm" ];
+          terminal = false;
+          startupNotify = true;
+        };
       in
       {
         packages.default = pkgs.stdenv.mkDerivation {
@@ -45,9 +59,20 @@
 
           installPhase = ''
             runHook preInstall
+            
+            # Установка исполняемого файла
             mkdir -p $out/bin
             cp bin/${pname} $out/bin/
             chmod +x $out/bin/${pname}
+            
+            # Установка desktop entry
+            mkdir -p $out/share/applications
+            cp ${desktopItem}/share/applications/*.desktop $out/share/applications/
+            
+            # Установка иконки
+            mkdir -p $out/share/icons/hicolor/scalable/apps
+            cp ${pname}-icon.svg $out/share/icons/hicolor/scalable/apps/${pname}.svg
+            
             runHook postInstall
           '';
 
