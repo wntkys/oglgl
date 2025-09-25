@@ -59,36 +59,6 @@ int initSDLAndOpenGL() {
   return 0;
 }
 
-void onRescaleHook(SDL_Event *event) {
-  glViewport(0, 0, event->window.data1, event->window.data2);
-  WINDOW_WIDTH = event->window.data1;
-  WINDOW_HEIGHT = event->window.data2;
-}
-
-int SDLAndOpenGLLoop(void (*draw)(), void (*update)(uint64_t)) {
-  SDL_Event event;
-  uint64_t lastTime = SDL_GetTicks();
-
-  bool running = true;
-  while (running) {
-    while (SDL_PollEvent(&event)) {
-      switch (event.type) {
-      case SDL_EVENT_QUIT:
-        running = false;
-      case SDL_EVENT_WINDOW_RESIZED:
-        onRescaleHook(&event);
-        break;
-      }
-    }
-    uint64_t currentTime = SDL_GetTicks();
-    update(currentTime - lastTime);
-    lastTime = currentTime;
-    draw();
-    SDL_GL_SwapWindow(window);
-  }
-  return 1;
-}
-
 int deinitOpenGL() { return 0; }
 
 int deinitSDL() {
