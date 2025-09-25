@@ -4,8 +4,7 @@
 #include <string.h>
 
 #include "../base/base.h"
-#include "../base/init.h"
-#include "GL/gl3w.h"
+#include <GL/gl3w.h>
 #include <SDL3/SDL.h>
 
 void SceneManager_init(SceneManager *manager) {
@@ -82,14 +81,17 @@ void SceneManager_mainLoop(SceneManager *manager) {
       switch (event.type) {
       case SDL_EVENT_QUIT:
         running = false;
+        break;
       case SDL_EVENT_WINDOW_RESIZED:
         onRescaleHook(&event);
+        goto endFrame;
         break;
       default:
         manager->current_scene->handle_events(manager->current_scene, &event);
         break;
       }
     }
+  endFrame:
     uint64_t currentTime = SDL_GetTicks();
     manager->current_scene->update(manager->current_scene,
                                    currentTime - lastTime);

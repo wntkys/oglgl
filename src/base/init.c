@@ -6,7 +6,7 @@
 #include "base.h"
 
 int initSDLAndOpenGL() {
-  if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+  if (!SDL_Init(SDL_INIT_VIDEO)) {
     printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
     return 1;
   }

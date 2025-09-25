@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SDL3/SDL_events.h"
+#include <SDL3/SDL.h>
 #include <stdbool.h>
 #include <stdint.h>
 

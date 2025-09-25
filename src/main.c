@@ -2,11 +2,9 @@
 #include "scenes/main_scene.h"
 #include "stdlib.h"
 #define _GNU_SOURCE
-#include <math.h>
 
 #include <GL/gl3w.h>
 
-#include "base/base.h"
 #include "base/debug_draw/debug_draw.h"
 #include "base/init.h"
 
@@ -16,6 +14,8 @@
 #include <cglm/cglm.h>
 
 int main(int argc, char *argv[]) {
+  (void)argc;
+  (void)argv;
   if (initSDLAndOpenGL() != 0) {
     return 1;
   }

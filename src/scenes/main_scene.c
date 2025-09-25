@@ -1,6 +1,8 @@
 #define _GNU_SOURCE
 #include <math.h>
 
+#include <stdint.h>
+
 #include "../base/base.h"
 #include "../base/debug_draw/debug_draw.h"
 #include "GL/gl3w.h"
@@ -12,7 +14,7 @@
 #include <time.h>
 
 typedef struct {
-  uint64_t lastTime;
+  uint64_t currentTime;
   DebugDrawContext *debugContext;
 } MainSceneData;
 
@@ -32,10 +34,14 @@ void MainScene_deinit(Scene *self) {
 
 void MainScene_handle_events(Scene *self, SDL_Event *event) {
   MainSceneData *data = self->data;
+  (void)event;
+  (void)data;
 }
 
 void MainScene_draw(Scene *self) {
-  glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+  MainSceneData *data = self->data;
+  (void)data;
+  glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT);
 
   mat4 view;
@@ -55,15 +61,19 @@ void MainScene_draw(Scene *self) {
 
 void MainScene_update(Scene *self, uint64_t dt) {
   MainSceneData *data = self->data;
-  for (int i = 0; i < 10; i++) {
-    float angle = (float)i / 9.0f * 2.0f * M_PI;
+  data->currentTime += dt;
+
+  float time = (float)data->currentTime / 1000.0f;
+
+  for (int i = 0; i < 100; i++) {
+    float angle = (float)i / 100.0f * 2.0f * M_PI;
 
     vec3 pos = {cosf(angle) * 5, sinf(angle) * 5, 0.0f};
     vec3 pos_end;
     glm_vec3_add(pos,
-                 (vec3){0.3f * (float)rand() / RAND_MAX,
-                        0.3f * (float)rand() / RAND_MAX,
-                        0.3f * (float)rand() / RAND_MAX},
+                 (vec3){0.3f * sinf(time + i * M_PI / 100 * 2 * 5) + 0.4f,
+                        0.3f * sinf(time + i * M_PI / 100 * 2 * 5) + 0.4f,
+                        0.3f * sinf(time + i * M_PI / 100 * 2 * 5) + 0.4f},
                  pos_end);
 
     postDrawRequest((DebugDrawCommand){

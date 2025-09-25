@@ -15,7 +15,7 @@ CC = gcc
 CSTD = -std=c23
 PKG_CONFIG_PACKAGES = sdl3 gl cglm
 
-CFLAGS = $(CSTD) -Wall -Wextra $(shell pkg-config --cflags $(PKG_CONFIG_PACKAGES)) -Ilibs/gl3w/include -g -O0 -fno-omit-frame-pointer
+CFLAGS = $(CSTD) -Wall -Wextra -Wpedantic -Werror $(shell pkg-config --cflags $(PKG_CONFIG_PACKAGES)) -Ilibs/gl3w/include -g -Og -fno-omit-frame-pointer 
 LDFLAGS = $(shell pkg-config --libs $(PKG_CONFIG_PACKAGES)) -lm -ldl -g
 
 .PHONY: all clean compile_commands.json shaders
