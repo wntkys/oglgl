@@ -1,6 +1,8 @@
 .vscode
 .direnv
 .cache
+result
+
 
 flake.lock
 obj
